@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style> 
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+	<th:block th:each="tab:${username}">
+        Welcome&nbsp;<td th:text="${tab}"></td>
+	</th:block>
+	</div>
+	<div align="center">
+		<h1>Admin Home Page</h1>
+		<a href="/studentDetails">Click to get Student Detail</a> &emsp;&emsp;
+		<a href="/getCourses">Click to get the Courses Detail</a> &emsp;&emsp;
+		<a href="/getProfile">Click to get the all Student Details</a>
+	</div>
+</body>
+</html>

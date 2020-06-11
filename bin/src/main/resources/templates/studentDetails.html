@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>student details</title>
+</head>
+<body>
+<div align="center">
+	<h1>Student Details</h1>
+	<form action="/studentDetails" method="post">
+		<label for="rollNo">Roll No :</label> <input type="text" id="rollNo"
+			name="rollNo"><br> <br> <br>
+
+		<div style="margin: 5%">
+
+			<table border="1" cellpadding="5">
+				<thead>
+					<tr>
+						<th>Roll No</th>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Contact No</th>
+						<th>UserId</th>
+						<th>Password</th>
+						<th>Address</th>
+						<th>Role</th>
+					</tr>
+				</thead>
+			
+		
+<th:block th:each="tab:${studentData}">
+			
+			<tr><td th:text="${tab.rollNo}"></td>
+			<td th:text="${tab.name}"></td>
+			<td th:text="${tab.age}"></td>
+			<td th:text="${tab.contactNum}"></td>
+			<td th:text="${tab.username}"></td>
+			<td th:text="${tab.password}"></td>
+			<td th:text="${tab.address}"></td>
+			<td th:text="${tab.role}"></td></tr>
+
+
+		</th:block>
+		</table>
+</div>
+	</form>
+</div>
+</body>
+</html>

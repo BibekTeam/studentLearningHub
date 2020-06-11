@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Course Enrollment</title>
+<style> 
+body{
+padding-left:10px;
+padding-top: 5px;
+background-color: powderblue;
+}
+.home{
+padding-top:5px;
+}
+#p1 {background-color:#ff0000;}
+#p2 {background-color:#00ff00;}
+#p3 {background-color:#0000ff;}
+#p4 {background-color:#ffff00;}
+#p5 {background-color:#ff00ff;}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+	<th:block th:each="tab:${username}">
+        Welcome&nbsp;<td th:text="${tab}"></td>
+	</th:block>
+	</div>
+	<div class="home">
+	<a href="/homePage" class="btn btn-success">HOME</a>
+	</div>
+	<form action="/paymentPage" method="post">
+		<div align="center">
+
+			<h1>Please Choose Course To Enroll</h1>
+
+			<table border="1" cellpadding="10" >
+
+				<tr>
+					<th>Course Name</th>
+					<th>Action</th>
+				</tr>
+				<tr>
+					<td>
+					<select name="courseName">
+					<option>C</option>
+					<option>C++</option>
+					<option>Java</option>
+					<option>HTML</option>
+					
+					</select>
+					</td>
+					<td><input type="submit" name="submit" value="BUY" class="btn btn-danger">
+				</tr>
+
+			</table>
+		</div>
+	</form>
+
+	<div align="center">
+		
+		<div style="margin: 5%">
+		<h1>Course List</h1>
+			<table border="1" cellpadding="5" cellspacing="5" class="table table-dark table-hover">
+
+				<tr >
+					<th>Course Id</th>
+					<th>Course Name</th>
+					<th>Price</th>
+					<th>Duration In Days</th>
+				</tr>
+
+				<tr >
+					<td>1</td>
+					<td>C</td>
+					<td>$200</td>
+					<td>45 Days</td>
+				</tr>
+				<tr >
+					<td>2</td>
+					<td>C++</td>
+					<td>$250</td>
+					<td>50 Days</td>
+				</tr>
+				<tr >
+					<td>3</td>
+					<td>Java</td>
+					<td>$500</td>
+					<td>60 Days</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>HTML</td>
+					<td>$300</td>
+					<td>30 Days</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+</body>
+</html>
+

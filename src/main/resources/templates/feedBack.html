@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+body{
+background-color: powderblue;
+padding-left:15px;
+}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation"> 
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td>
+</th:block>
+</div>
+<h1>Text area for Feedback</h1>
+	<form action="/feedBackForm" method="post">
+		<textarea rows="5" cols="60" name="content"
+			placeholder="Write your feedback.."></textarea>
+		<br> 
+		<table>
+		<tr>
+		<td>
+		<input type="submit" value="Submit" class="btn btn-success">&emsp;&emsp;
+		<a href="/homePage" class="btn btn-warning">HOME</a>
+		</td>
+		<td>
+		
+		</td>
+		</tr>
+		</table>
+	</form>
+	<th:block th:each="tab:${feedback}">
+		<hr>
+		<p th:text="${tab.content}">
+	</th:block>
+	
+	<hr>
+	
+	
+</body>
+</html>
+
+
+
+

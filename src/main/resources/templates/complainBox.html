@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content ="width=device-width,initial-scale=1.0">
+<style>
+body{font-family:Arial,Helvetica,sans-serif;}* {box-sizing: border-box;}
+
+*{box-sizing: border-box;}
+/* Style input with type ="text" select elements and textareas */
+input[type=text],select,textarea{
+	width:100%; 
+	padding:12px;
+	border: 1px solid #ccc;
+  	border-radius: 4px;
+  	box-sizing: border-box;
+  	margin-top: 6px;
+  	margin-bottom: 16px;
+  	resize: vertical;
+}
+input[type=submit] {
+  	background-color: #4CAF50;
+  	color: white;
+  	padding: 12px 20px;
+  	border: none;
+  	border-radius: 4px;
+  	cursor: pointer;
+}
+input[type=submit]:hover {
+  	background-color: #45a049;
+}
+
+/* Background color and some padding for the form */
+.container {
+  	border-radius: 5px;
+  	background-color: #f2f2f2;
+  	padding: 20px;
+}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td>
+</th:block>
+</div>
+<h3>Text area for Complain</h3>
+<div class="container">
+	<form action="/insertComplainBox" method="post">
+		<label for="emailId"> Email Id</label> <br>
+		<input type="email" id="emailId" name="emailId" placeholder="your email id .."> <br>
+
+		<label for="complainSubject">Complain Subject</label>
+   		<input type="text" id="complainSubject" name="complainSubject" placeholder="Your complain subject.."> <br>
+
+		<label for="comments">Your Comments</label>
+		<textarea id= "comments"  name="complainComments" placeholder="Write your comments.." style="height:200px"></textarea>
+
+		 <input type="submit" value="Submit">
+	</form>
+</div>
+
+<hr>
+<div>
+	<a href="/homePage">HOME</a> 
+</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body>
+<h1>Text area for Feedback</h1>
+	<form action="/feedBackForm" method="post">
+		<textarea rows="5" cols="60" name="content"
+			placeholder="Write your feedback.."></textarea>
+		<br> <input type="submit" value="Submit">
+	</form>
+	<th:block th:each="tab:${feedback}">
+		<hr>
+		<p th:text="${tab.content}">
+	</th:block>
+</body>
+</html>
+
+
+
+

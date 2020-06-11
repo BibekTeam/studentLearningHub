@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}">
+</th:block>
+</div>
+	<div align="center">
+		<h1>View Course</h1>
+		<div style="margin: 5%">
+			<table border="1" cellpadding="5" cellspacing="5">
+				<tr>
+					<th>Course Id</th>
+					<th>Course Name</th>
+					<th>Price</th>
+					<th>Duration In Days</th>
+				</tr>
+
+				<th:block th:each="tab:${courseData}">
+					<tr>
+						<td th:text="${tab.courseId}"></td>
+						<td th:text="${tab.courseName}"></td>
+						<td th:text="${tab.price}"></td>
+						<td th:text="${tab.durationInDays}"></td>
+					</tr>
+			</table>
+			</th:block>
+		</div>
+	</div>
+
+	<hr>
+	<div>
+		<a href="/homePage">HOME</a><br>
+		<a href="/orderCourse">Buy Course</a>
+	</div>
+
+</body>
+</html>

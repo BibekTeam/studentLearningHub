@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+<style>
+
+body{
+padding-left:10px;
+background-color: powderblue;
+}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td><br><br>
+</th:block>
+</div>
+
+<form action="/sucessPage" method="post">
+<div align="center">
+		<h1>Congratulation <th:block th:each="tab:${username}">
+&nbsp;<td th:text="${tab}">
+</th:block>&nbsp; you are enrolled</h1>
+		<h4>Make Payment</h4>
+
+		<div style="margin: 5%">
+			<table border="1" cellpadding="5" cellspacing="5"  class="table table-dark table-hover">
+				
+						<tr><th>Course Id</th>
+						<th>Course Name</th>
+						<th>Price($)</th>
+						<th>Duration In Days</th></tr>
+					
+				
+			
+		
+		<th:block th:each="tab:${cartData}">
+			<tr><td th:text="${tab.courseId}"></td>
+			<td th:text="${tab.courseName}"></td>
+			<td th:text="${tab.price}"></td>
+			<td th:text="${tab.durationInDays}"></td>	</tr>
+
+		</th:block>
+		
+		</table><br>
+		<div>
+		
+	<table><tr>
+	<td>
+	<a href="/orderCourse" class="btn btn-success">Continue Buying</a>&emsp;&emsp;
+	</td>
+
+	<td>
+	<input type="submit" name="submit" value="PAY" class="btn btn-warning">
+	</td>
+	
+	</tr></table>	
+		
+		</div>
+		</div>
+		
+		
+		
+	</div>
+	
+	
+	</form>
+	
+</body>
+</html>

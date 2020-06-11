@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+
+
+<div align="center">
+		<h1>View Course</h1>
+
+		<div style="margin: 5%">
+			<table border="1" cellpadding="5" cellspacing="5">
+				
+						<tr><th>Course Id</th>
+						<th>Course Name</th>
+						<th>Price</th>
+						<th>Duration In Days</th></tr>
+					
+				
+			
+		
+		<th:block th:each="tab:${courseData}">
+			<tr><td th:text="${tab.courseId}"></td>
+			<td th:text="${tab.courseName}"></td>
+			<td th:text="${tab.price}"></td>
+			<td th:text="${tab.durationInDays}"></td>	</tr>
+</table>
+		</th:block>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Payment Done</title>
+<style>
+body{
+background-color: powderblue;
+}
+
+.home{
+padding-top:5px;
+padding-left:10px;
+}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td>
+</th:block>
+</div>
+<div class="home">
+<a href="/homePage" class="btn btn-success">HOME</a>
+</div>
+<h1>Congratulation !!!&nbsp;<th:block th:each="tab:${username}">
+<td th:text="${tab}"></td>
+</th:block>!!! Best Wishes</h1>
+
+<th:block th:each="tab:${amount}">
+hi<td th:text="${tab.price}"></td>
+</th:block>
+
+</body>
+</html>

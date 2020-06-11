@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<Title>Page Title</title>
+<style>
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+!!! Welcome !!!
+</div>
+<h1> Welcome to the Student App</h1>
+
+<h2><a href="/signInPage">sign in</a> </h2>   
+        
+<h2><a href="/signUpPage">sign up</a> </h2>  
+
+<h3><a href="/complainBoxPage">complain page</a> </h3>
+</html>

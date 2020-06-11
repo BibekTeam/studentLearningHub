@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<Title>User Home </title>
+<style>
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td>
+</th:block>
+</div>
+
+<h1>Welcome to user Home App</h1>
+
+ <a href="/feedBackForm">FeedBack</a><br>
+ <a href="/viewCourse">View course</a><br>  
+ <a href="/orderCourse">Buy Course</a><br>
+ <a href="/myProfile">My profile</a>
+ 
+
+</body>
+</html>

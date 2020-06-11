@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Profile Page</title>
+<style>
+body{
+background-color: powderblue;
+}
+.home{
+padding-left:10px;
+}
+.animation {
+  width: 125px;
+  height: 25px;
+  background: red;
+  position: relative;
+  animation-name: mymove;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+</style>
+</head>
+<body>
+<div class="animation">
+<th:block th:each="tab:${username}">
+Welcome&nbsp;<td th:text="${tab}"></td>
+</th:block>
+</div>
+	<div align="center">
+		<h1>Profile View Page</h1>
+		<table border="1" cellpadding="5" cellspacing="5">
+			<tr>
+				<th>Roll No</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Contact No</th>
+				<th>UserId</th>
+				<th>Address</th>
+				<th>Role</th>
+			</tr>
+			<th:block th:each="tab:${data}">
+				<tr>
+					<td th:text="${tab.rollNo}"></td>
+					<td th:text="${tab.name}"></td>
+					<td th:text="${tab.age}"></td>
+					<td th:text="${tab.contactNum}"></td>
+					<td th:text="${tab.username}"></td>
+					<td th:text="${tab.address}"></td>
+					<td th:text="${tab.role}"></td>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+
+	<hr>
+	<div class="home">
+		<a href="/homePage" class="btn btn-warning">HOME</a>
+	</div>
+
+</body>
+</html>

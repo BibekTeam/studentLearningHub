@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+ <div align="center">
+		<h1>Profile View Page</h1>
+		<table border="1" cellpadding="5" cellspacing="5">
+			<tr>
+				<th>Email Id</th>
+				<th>Complain Subject</th>
+				<th>Complain Comments</th>
+			</tr>
+			<th:block th:each="tab:${complainData}">
+				<tr>
+					<td th:text="${tab.emailId}"></td>
+					<td th:text="${tab.complainSubject}"></td>
+					<td th:text="${tab.complainComments}"></td>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+
+	
+
+
+</html
