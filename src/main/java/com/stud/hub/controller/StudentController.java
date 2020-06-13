@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.stud.hub.model.CourseCartDetails;
 import com.stud.hub.model.CourseDetails;
 import com.stud.hub.service.StudentServiceI;
+import com.stud.hub.util.StudentUtil;
 import com.stud.hub.util.StudentValidation;
 import com.student.hub.bean.ComplainRequest;
 import com.student.hub.bean.FeedBackRequest;
@@ -30,15 +31,14 @@ public class StudentController {
 
 	@RequestMapping("/index")
 	public String index() {
-		return "indextrial.html";
+		return "indextrial";
 	}
 
 	@RequestMapping("/signInPage")
 	public String signInForm(SignInRequest request) {
-		return "indextrial.html";
+		return "indextrial";
 	}
 
-	// method to return complain page
 	@RequestMapping("/complainBoxPage")
 	public String complainPage(ComplainRequest request, Model model) {
 		return "complainBox";
@@ -46,21 +46,24 @@ public class StudentController {
 
 	@RequestMapping("/insertComplainBox")
 	public String insertComplain(ComplainRequest request, Model model) {
-		studentService.insertComplain(request);
-		return "redirect:viewComplains ";
+		if (studentValidation.complainReqValidation(request)) {
+			studentService.insertComplain(request);
+			return "redirect:viewComplains ";
+		}
+		return "error";
 	}
 
 	@RequestMapping("/viewComplains")
 	public String viewComplains(Model model) {
 		List<ComplainRequest> complain = studentService.getComplain();
 		model.addAttribute("complainData", complain);
-		return "viewComplains.html";
+		return "viewComplains";
 	}
 
 	@RequestMapping("/signUpPage")
 	public String signUpForm(SignInRequest request) {
 
-		return "indextrial.html";
+		return "indextrial";
 	}
 
 	@RequestMapping("/signInForm")
@@ -87,12 +90,15 @@ public class StudentController {
 
 	@RequestMapping("/feedBackForm")
 	public String feedbackForm(FeedBackRequest request, Model model, HttpSession session) {
-		String name = (String) session.getAttribute("username");
-		model.addAttribute("username", name);
-		studentService.insertFeedBack(name, request);
-		List<FeedBackRequest> feedback = studentService.getfeedback();
-		model.addAttribute("feedback", feedback);
-		return "feedBack.html";
+		if (StudentUtil.contentValidation(request.getContent())) {
+			String name = (String) session.getAttribute("username");
+			model.addAttribute("username", name);
+			studentService.insertFeedBack(name, request);
+			List<FeedBackRequest> feedback = studentService.getfeedback();
+			model.addAttribute("feedback", feedback);
+			return "feedBack";
+		}
+		return "error";
 	}
 
 	@RequestMapping("/getStudentDetailsPage")
@@ -108,13 +114,13 @@ public class StudentController {
 		model.addAttribute("studentData", studentDetails);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
-		return "studentDetails.html";
+		return "studentDetails";
 	}
 
 	@RequestMapping("/signUpForm")
 	public String signUp(SignupRequest request) {
 		studentService.signUpForm(request);
-		return "indextrial.html";
+		return "indextrial";
 	}
 
 	@RequestMapping(value = "/getProfile")
@@ -144,7 +150,7 @@ public class StudentController {
 		} else if (role.equals("Admin")) {
 			return "adminhomepage";
 		} else {
-			return "error.html";
+			return "error";
 		}
 
 	}
@@ -175,7 +181,7 @@ public class StudentController {
 		model.addAttribute("courseData", listOfCourse);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
-		return "viewCourse.html";
+		return "viewCourse";
 	}
 
 	@RequestMapping("/viewCourse")
@@ -199,8 +205,6 @@ public class StudentController {
 			CourseCartDetails courseCart) {
 		studentService.addToCart(request);
 		studentService.addToCartMap(courseCart);
-		// List<CourseCartDetails> course = studentService.getCartMap();
-		// model.addAttribute("cartData", course);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
 		return "redirect:viewPayment";
@@ -209,7 +213,6 @@ public class StudentController {
 	@RequestMapping("/viewPayment")
 	public String viewCourseCart(CourseCartDetails request, HttpSession session, Model model) {
 		List<CourseCartDetails> course = studentService.getCartMap();
-		// session.getAttribute("courseCart");
 		model.addAttribute("cartData", course);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
@@ -232,7 +235,7 @@ public class StudentController {
 		String role = (String) session.getAttribute("role");
 		if (role.equals("Admin")) {
 
-			return "cartOrderView.html";
+			return "cartOrderView";
 		} else {
 			return "error";
 		}

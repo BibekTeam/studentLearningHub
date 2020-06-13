@@ -26,4 +26,21 @@ public class StudentUtil {
 		}
 	}
 
+	public static boolean subjectValidation(String subject) {
+		boolean flag = false;
+		String[] str = subject.split(" ");
+		if (str.length >= 4) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public static boolean contentValidation(String content) {
+		boolean flag = false;
+		if (content.length() >= 100) {
+			flag = true;
+		}
+		return flag;
+	}
+
 }

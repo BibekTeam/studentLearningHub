@@ -22,8 +22,10 @@ public class StudentValidation {
 	public boolean complainReqValidation(ComplainRequest request) {
 		boolean flag = false;
 		boolean isEmailValid = StudentUtil.emailValidation(request.getEmailId());
-		if(isEmailValid) {
-			flag=true;
+		boolean isSubjectValid = StudentUtil.subjectValidation(request.getComplainSubject());
+		boolean isContentValid = StudentUtil.contentValidation(request.getComplainComments());
+		if (isEmailValid && isSubjectValid && isContentValid) {
+			flag = true;
 		}
 		return flag;
 	}

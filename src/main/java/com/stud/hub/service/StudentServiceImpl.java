@@ -62,13 +62,12 @@ public class StudentServiceImpl implements StudentServiceI {
 		feedback.setUsername(username);
 		feedback.setContent(request.getContent());
 		studentFeedbackDao.save(feedback);
-
 	}
 
 	@Override
 	public List<FeedBackRequest> getfeedback() {
 		List<Feedback> feekList = studentFeedbackDao.findAll();
-		List<FeedBackRequest> feedbackRequest = new ArrayList();
+		List<FeedBackRequest> feedbackRequest = new ArrayList<FeedBackRequest>();
 		for (Feedback feedback : feekList) {
 			FeedBackRequest feedBackRequest = new FeedBackRequest();
 			feedBackRequest.setContent(feedback.getContent());
@@ -97,7 +96,6 @@ public class StudentServiceImpl implements StudentServiceI {
 	public List<CourseDetails> getCourse() {
 
 		return courseDao.findAll();
-
 	}
 
 	@Override
@@ -107,7 +105,6 @@ public class StudentServiceImpl implements StudentServiceI {
 
 	@Override
 	public void addToCart(CourseCartDetails courseCart) {
-
 		if (courseCart.getCourseName().equals("C")) {
 			courseCart.setPrice(200);
 			courseCart.setCourseId(101);
@@ -125,13 +122,11 @@ public class StudentServiceImpl implements StudentServiceI {
 			courseCart.setCourseId(104);
 			courseCart.setDurationInDays("30");
 		}
-
 		courseCartDetailsDao.save(courseCart);
 	}
 
 	@Override
 	public void addToCartMap(CourseCartDetails courseCart) {
-
 		if (courseCart.getCourseName().equals("C")) {
 			courseCart.setPrice(200);
 			courseCart.setCourseId(101);
@@ -154,8 +149,8 @@ public class StudentServiceImpl implements StudentServiceI {
 
 	@Override
 	public List<CourseCartDetails> getCartMap() {
-
 		List<CourseCartDetails> courseCartPage = new ArrayList<CourseCartDetails>(courseCartDetailsMap.values());
+
 		return courseCartPage;
 	}
 
@@ -167,13 +162,12 @@ public class StudentServiceImpl implements StudentServiceI {
 
 	@Override
 	public boolean signIn(SignInRequest request) {
-
 		UserInfo userInfo = userInfoDao.findByUsername(request.getUsername());
-
 		if (userInfo.getUsername().equals(request.getUsername())
 				&& userInfo.getPassword().equals(request.getPassword())) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -195,7 +189,6 @@ public class StudentServiceImpl implements StudentServiceI {
 	public SignupRequest studentDetails(StudentDetailsRequest request) {
 		SignupRequest studentDtl = new SignupRequest();
 		UserInfo userInfo = userInfoDao.findById(request.getRollNo()).get();
-
 		studentDtl.setName(userInfo.getName());
 		studentDtl.setAge(userInfo.getAge());
 		studentDtl.setAddress(userInfo.getAddress());

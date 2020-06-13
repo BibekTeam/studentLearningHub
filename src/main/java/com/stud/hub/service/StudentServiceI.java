@@ -11,6 +11,7 @@ import com.student.hub.bean.SignupRequest;
 import com.student.hub.bean.StudentDetailsRequest;
 
 public interface StudentServiceI {
+	
 	public boolean signIn(SignInRequest request);
 
 	public void signUpForm(SignupRequest request);
@@ -42,7 +43,5 @@ public interface StudentServiceI {
 	public List<CourseCartDetails> getCartMap();
 
 	public void addToCartMap(CourseCartDetails courseCart);
-	
-	
 
 }
