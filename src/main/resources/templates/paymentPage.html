@@ -49,18 +49,22 @@ Welcome&nbsp;<td th:text="${tab}"></td><br><br>
 						<tr><th>Course Id</th>
 						<th>Course Name</th>
 						<th>Price($)</th>
-						<th>Duration In Days</th></tr>
+						<th>Duration In Days</th>
+						<td>Customer Name</td>
+						</tr>
 					
 				
 			
 		
 		<th:block th:each="tab:${cartData}">
-			<tr><td th:text="${tab.courseId}"></td>
+		
+			 <tr><td th:text="${tab.courseId}"></td>
 			<td th:text="${tab.courseName}"></td>
 			<td th:text="${tab.price}"></td>
-			<td th:text="${tab.durationInDays}"></td>	</tr>
-
-		</th:block>
+			<td th:text="${tab.durationInDays}"></td>	
+		    <th:block th:each="tab:${username}">
+            <td th:text="${tab}"></td></tr> 
+            </th:block>
 		
 		</table><br>
 		<div>

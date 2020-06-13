@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="viewport" content ="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Complain Page </title>
 <style>
-body{font-family:Arial,Helvetica,sans-serif;}* {box-sizing: border-box;}
+body{
+background-color:powderblue;
+font-family:Arial,Helvetica,sans-serif;}* {box-sizing: border-box;}
 
 *{box-sizing: border-box;}
 /* Style input with type ="text" select elements and textareas */
@@ -57,7 +64,7 @@ input[type=submit]:hover {
 Welcome&nbsp;<td th:text="${tab}"></td>
 </th:block>
 </div>
-<h3>Text area for Complain</h3>
+<h3 align="center">Text area for Complain</h3>
 <div class="container">
 	<form action="/insertComplainBox" method="post">
 		<label for="emailId"> Email Id</label> <br>
@@ -69,13 +76,11 @@ Welcome&nbsp;<td th:text="${tab}"></td>
 		<label for="comments">Your Comments</label>
 		<textarea id= "comments"  name="complainComments" placeholder="Write your comments.." style="height:200px"></textarea>
 
-		 <input type="submit" value="Submit">
+		 <input type="submit" value="Submit" class="btn btn-success"> &emsp;&emsp;&emsp;&emsp;  <a href="/homePage" class="btn btn-danger">HOME</a> 
 	</form>
 </div>
-
-<hr>
 <div>
-	<a href="/homePage">HOME</a> 
+	
 </div>
 </body>
 </html>

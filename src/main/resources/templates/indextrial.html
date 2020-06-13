@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link
+	href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Tangerine">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Home Page</title>
+<style type="text/css">
+body {
+	background-color: #9F9C99;
+	background-image: url("student.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.signup {
+	padding-left: 1100px;
+	padding-top: 25px;
+}
+
+.front {
+	padding-top: 5px;
+	padding-left: 10px;
+	background-color: #9400d3;
+}
+</style>
+</head>
+<body>
+
+
+	<div class="front">
+		<form action="/signInForm" method="post">
+			<table>
+				<tr>
+
+					<td style="color: white; font-family: 'Patua One', cursive;"><h2>Oxford
+							School&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></td>
+
+
+					<td style="color: white">Username :</td>
+					<td><input type="text" name="username"
+						placeholder="Enter username"></td>
+					<td style="color: white">&nbsp;Password :</td>
+					<td><input type="Password" name="password"
+						placeholder="Enter your password"></td>
+					<td>&nbsp;<input type="submit" name="Submit">
+					</td>
+				</tr>
+
+			</table>
+		</form>
+	</div>
+	<div class="signup">
+		<br>
+		<br>
+		<h1 style="color: white;">Create an account</h1>
+		<form action="/signUpForm" method="post">
+			<table cellpadding="5">
+				<tr>
+					<td style="color: white">Roll No :</td>
+					<td><input type="text" name="rollNo"
+						placeholder="Enter your rollNo"></td>
+				</tr>
+				<tr>
+					<td style="color: white">Full Name :</td>
+					<td><input type="text" name="name"
+						placeholder="Enter Your Full Name"></td>
+				</tr>
+
+				<tr>
+					<td style="color: white">Username :</td>
+					<td><input type="text" name="username"
+						placeholder="Enter your Username "></td></tr>
+				<tr>
+					<td style="color: white">Password :</td>
+					<td><input type="Password" name="password"
+						placeholder="Enter your password"></td>
+
+				</tr>
+
+				<tr>
+					<td style="color: white">Address :</td>
+					<td><input type="text" name="address"
+						placeholder="Enter your address "></td>
+
+				</tr>
+				<tr>
+					<td style="color: white">Age :</td>
+					<td><input type="text" name="age" placeholder="Enter your age">
+					</td>
+
+				</tr>
+
+				<tr>
+		   <td style="color: white">Contact No :</td>
+					<td><input type="text" name="contactNum"
+						placeholder="Enter your contact "></td>
+				</tr>
+
+				
+
+			
+
+
+			</table>
+			<label for = "role" style="color: white" >&nbsp;&nbsp;&nbsp;&nbsp; Role : &nbsp;&nbsp;&nbsp;&nbsp;</label> 	
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type = "radio" id = "student" name = "role" value = "Student">
+	&nbsp;&nbsp;<label for = "student" style="color: white"> Student &nbsp;&nbsp;</label>
+
+	<input type = "radio" id = "admin" name = "role" value = "Admin">
+	&nbsp;&nbsp;&nbsp;&nbsp;<label for = "admin" style="color: white"> Admin </label>
+	<table>
+				<tr>
+					<td><input type="submit" name="Submit"></td>
+				</tr></table>
+		</form>
+	</div>
+
+</body>
+</html>

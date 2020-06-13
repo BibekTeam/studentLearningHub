@@ -8,12 +8,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stud.hub.dao.CourseCartDetailsDAOI;
 import com.stud.hub.dao.StudentComplainDAOI;
+import com.stud.hub.dao.StudentCourseDAOI;
 import com.stud.hub.dao.StudentFeedbackDAOI;
+import com.stud.hub.dao.StudentUserInfoDAOI;
 import com.stud.hub.model.Complain;
+import com.stud.hub.model.CourseCartDetails;
+import com.stud.hub.model.CourseDetails;
 import com.stud.hub.model.Feedback;
+import com.stud.hub.model.UserInfo;
 import com.student.hub.bean.ComplainRequest;
-import com.student.hub.bean.Course;
 import com.student.hub.bean.CourseCart;
 import com.student.hub.bean.FeedBackRequest;
 import com.student.hub.bean.SignInRequest;
@@ -23,46 +28,32 @@ import com.student.hub.bean.StudentDetailsRequest;
 @Service
 public class StudentServiceImpl implements StudentServiceI {
 
-	Map<Integer, SignupRequest> map = new HashMap<>();
+	@Autowired
+	StudentUserInfoDAOI userInfoDao;
 
 	@Autowired
 	private StudentFeedbackDAOI studentFeedbackDao;
 
-	// Map<Integer, FeedBackRequest> feedBackMap = new HashMap<>();
-	Map<Integer, Course> courseMap = new HashMap<>();
-	//Map<String, ComplainRequest> complainMap = new HashMap<>();
-	
+	Map<Integer, CourseCartDetails> courseCartDetailsMap = new HashMap<>();
+
+	@Autowired
+	private StudentCourseDAOI courseDao;
+
+	@Autowired
+	private CourseCartDetailsDAOI courseCartDetailsDao;
+
 	@Autowired
 	private StudentComplainDAOI studentComplainDao;
+
 	Map<Integer, CourseCart> courseCartMap = new HashMap<>();
 
 	@Override
-	public boolean signIn(SignInRequest request) {
-
-		for (Map.Entry<Integer, SignupRequest> entry : map.entrySet()) {
-			SignupRequest studentInfos = entry.getValue();
-			if (request.getUsername().equals(studentInfos.getUsername())
-					&& request.getPassword().equals(studentInfos.getPassword())) {
-				return true;
-
-			}
-
-		}
-		return false;
-	}
-
-	@Override
-	public void insertComplain (ComplainRequest request) {
+	public void insertComplain(ComplainRequest request) {
 		Complain complain = new Complain();
 		complain.setEmailId(request.getEmailId());
 		complain.setComplainSubject(request.getComplainSubject());
 		complain.setComplainComments(request.getComplainComments());
 		studentComplainDao.save(complain);
-	}
-
-	@Override
-	public void signUpForm(SignupRequest request) {
-		map.put(request.getRollNo(), request);
 	}
 
 	@Override
@@ -88,17 +79,6 @@ public class StudentServiceImpl implements StudentServiceI {
 	}
 
 	@Override
-	public List<Course> getCourse() {
-		courseMap.put(1, new Course(1, "C", "200$", "45"));
-		courseMap.put(2, new Course(2, "C++", "250$", "50"));
-		courseMap.put(3, new Course(3, "Java", "500$", "60"));
-		courseMap.put(4, new Course(4, "HTML", "300$", "30"));
-
-		List<Course> request = new ArrayList<>(courseMap.values());
-		return request;
-	}
-
-	@Override
 	public List<ComplainRequest> getComplain() {
 		List<Complain> complainList = studentComplainDao.findAll();
 		List<ComplainRequest> complainRequestList = new ArrayList<ComplainRequest>();
@@ -109,72 +89,144 @@ public class StudentServiceImpl implements StudentServiceI {
 			complainRequest.setComplainComments(complain.getComplainComments());
 			complainRequestList.add(complainRequest);
 		}
-		
+
 		return complainRequestList;
 	}
 
+	@Override
+	public List<CourseDetails> getCourse() {
+
+		return courseDao.findAll();
+
+	}
+
+	@Override
+	public void insertCourse(CourseDetails course) {
+		courseDao.save(course);
+	}
+
+	@Override
+	public void addToCart(CourseCartDetails courseCart) {
+
+		if (courseCart.getCourseName().equals("C")) {
+			courseCart.setPrice(200);
+			courseCart.setCourseId(101);
+			courseCart.setDurationInDays("45");
+		} else if (courseCart.getCourseName().equals("C++")) {
+			courseCart.setPrice(250);
+			courseCart.setCourseId(102);
+			courseCart.setDurationInDays("50");
+		} else if (courseCart.getCourseName().equals("Java")) {
+			courseCart.setPrice(500);
+			courseCart.setCourseId(103);
+			courseCart.setDurationInDays("60");
+		} else if (courseCart.getCourseName().equals("HTML")) {
+			courseCart.setPrice(300);
+			courseCart.setCourseId(104);
+			courseCart.setDurationInDays("30");
+		}
+
+		courseCartDetailsDao.save(courseCart);
+	}
+
+	@Override
+	public void addToCartMap(CourseCartDetails courseCart) {
+
+		if (courseCart.getCourseName().equals("C")) {
+			courseCart.setPrice(200);
+			courseCart.setCourseId(101);
+			courseCart.setDurationInDays("45");
+		} else if (courseCart.getCourseName().equals("C++")) {
+			courseCart.setPrice(250);
+			courseCart.setCourseId(102);
+			courseCart.setDurationInDays("50");
+		} else if (courseCart.getCourseName().equals("Java")) {
+			courseCart.setPrice(500);
+			courseCart.setCourseId(103);
+			courseCart.setDurationInDays("60");
+		} else if (courseCart.getCourseName().equals("HTML")) {
+			courseCart.setPrice(300);
+			courseCart.setCourseId(104);
+			courseCart.setDurationInDays("30");
+		}
+		courseCartDetailsMap.put(courseCart.getCartId(), courseCart);
+	}
+
+	@Override
+	public List<CourseCartDetails> getCartMap() {
+
+		List<CourseCartDetails> courseCartPage = new ArrayList<CourseCartDetails>(courseCartDetailsMap.values());
+		return courseCartPage;
+	}
+
+	@Override
+	public List<CourseCartDetails> getCart() {
+
+		return courseCartDetailsDao.findAll();
+	}
+
+	@Override
+	public boolean signIn(SignInRequest request) {
+
+		UserInfo userInfo = userInfoDao.findByUsername(request.getUsername());
+
+		if (userInfo.getUsername().equals(request.getUsername())
+				&& userInfo.getPassword().equals(request.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void signUpForm(SignupRequest request) {
+		UserInfo userInfo = new UserInfo();
+		userInfo.setName(request.getName());
+		userInfo.setAge(request.getAge());
+		userInfo.setAddress(request.getAddress());
+		userInfo.setContactNum(request.getContactNum());
+		userInfo.setUsername(request.getUsername());
+		userInfo.setPassword(request.getPassword());
+		userInfo.setRole(request.getRole());
+
+		userInfoDao.save(userInfo);
+	}
 
 	@Override
 	public SignupRequest studentDetails(StudentDetailsRequest request) {
-		SignupRequest studentDtl = map.get(request.getRollNo());
+		SignupRequest studentDtl = new SignupRequest();
+		UserInfo userInfo = userInfoDao.findById(request.getRollNo()).get();
+
+		studentDtl.setName(userInfo.getName());
+		studentDtl.setAge(userInfo.getAge());
+		studentDtl.setAddress(userInfo.getAddress());
+		studentDtl.setContactNum(userInfo.getContactNum());
+		studentDtl.setUsername(userInfo.getUsername());
+		studentDtl.setPassword(userInfo.getPassword());
+		studentDtl.setRole(userInfo.getRole());
+
 		return studentDtl;
 	}
 
 	@Override
 	public SignupRequest getUserProfile(int rollNo) {
-		SignupRequest signUp = map.get(rollNo);
-		if (map.containsKey(rollNo)) {
-			return signUp;
-		} else {
-			return null;
-		}
+		StudentDetailsRequest request = new StudentDetailsRequest();
+		request.setRollNo(rollNo);
+		SignupRequest studentDtl = studentDetails(request);
+
+		return studentDtl;
 	}
 
 	@Override
 	public int getRollNoByUserName(String userName) {
-		for (Map.Entry<Integer, SignupRequest> entry : map.entrySet()) {
-			SignupRequest studentInfos = entry.getValue();
-			if (userName.equals(studentInfos.getUsername())) {
-				return studentInfos.getRollNo();
-			}
-		}
-		return 0;
-	}
+		UserInfo userInfo = userInfoDao.findByUsername(userName);
 
-	@Override
-	public void addToCart(CourseCart request) {
-
-		if (request.getCourseName().equals("C")) {
-			request.setPrice(200);
-			request.setCourseId(1);
-			request.setDurationInDays("45");
-		} else if (request.getCourseName().equals("C++")) {
-			request.setPrice(250);
-			request.setCourseId(2);
-			request.setDurationInDays("50");
-		} else if (request.getCourseName().equals("Java")) {
-			request.setPrice(500);
-			request.setCourseId(3);
-			request.setDurationInDays("60");
-		} else if (request.getCourseName().equals("HTML")) {
-			request.setPrice(300);
-			request.setCourseId(4);
-			request.setDurationInDays("30");
-		}
-
-		courseCartMap.put(request.getCourseId(), request);
-
-	}
-
-	@Override
-	public List<CourseCart> getCart() {
-		List<CourseCart> cart = new ArrayList<>(courseCartMap.values());
-		return cart;
+		return userInfo.getRollNo();
 	}
 
 	@Override
 	public String getRoleByRollNo(int rollNo) {
-		return map.get(rollNo).getRole();
-	}
+		UserInfo userInfo = userInfoDao.findById(rollNo).get();
+		return userInfo.getRole();
 
+	}
 }

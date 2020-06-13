@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Admin Home Page</title>
 <style> 
+body{
+padding-left:10px;
+padding-top: 5px;
+background-color: powderblue;
+}
 .animation {
   width: 125px;
   height: 25px;
@@ -27,10 +36,14 @@
 	</th:block>
 	</div>
 	<div align="center">
-		<h1>Admin Home Page</h1>
-		<a href="/studentDetails">Click to get Student Detail</a> &emsp;&emsp;
-		<a href="/getCourses">Click to get the Courses Detail</a> &emsp;&emsp;
-		<a href="/getProfile">Click to get the all Student Details</a>
+		<h1>Admin Home Page</h1><br><br>
+		<a href="/getStudentDetailsPage" class="btn btn-success">Student Detail</a> &emsp;
+		<a href="/getCourses" class="btn btn-danger">Courses Detail</a> &emsp;
+		<a href="/addCourseView" class="btn btn-success">Add Course</a> &emsp;
+		<a href="/viewComplains" class="btn btn-danger">View complains</a> &emsp;
+		<a href="/feedBackForm" class="btn btn-success">View feedback</a> &emsp;
+		<a href="/orderViewPage" class="btn btn-danger">Course Orderpage</a> &emsp;
+		<a href="/getProfile" class="btn btn-success">All Student Details</a>
 	</div>
 </body>
 </html>

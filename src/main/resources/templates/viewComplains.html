@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Complain Page</title>
 <style>
+body{
+padding-left:10px;
+padding-top: 5px;
+background-color: powderblue;
+}
+.home{
+padding-top:5px;
+}
 .animation {
   width: 125px;
   height: 25px;
@@ -16,6 +30,9 @@
   from {left: 0px;}
   to {left: 100%;}
 }
+.home{
+padding-top:5px;
+}
 </style>
 </head>
 <body>
@@ -24,9 +41,12 @@
 Welcome&nbsp;<td th:text="${tab}"></td>
 </th:block>
 </div>
+<div class="home">
+	<a href="/homePage" class="btn btn-success">HOME</a>
+	</div>
 	<div align="center">
 		<h1>Complain View</h1>
-		<table border="1" cellpadding="5" cellspacing="5">
+		<table border="1" cellpadding="5" cellspacing="5" class="table table-dark table-hover">
 			<tr>
 				<th>Email Id</th>
 				<th>Complain Subject</th>
@@ -43,9 +63,5 @@ Welcome&nbsp;<td th:text="${tab}"></td>
 	</div>
 
 	<hr>
-	<div>
-		<a href="/homePage">HOME</a>
-	</div>
-
-</body>
+	</body>
 </html>

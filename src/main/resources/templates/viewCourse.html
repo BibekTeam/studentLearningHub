@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<title>Course View</title>
+
 <style>
+
+body{
+padding-left:10px;
+padding-top: 5px;
+background-color: powderblue;
+}
+.home{
+padding-top:5px;
+}
 .animation {
   width: 125px;
   height: 25px;
@@ -24,10 +40,14 @@
 Welcome&nbsp;<td th:text="${tab}">
 </th:block>
 </div>
+<div class="home">
+<a href="/homePage" class="btn btn-success">HOME</a>
+</div>
+
 	<div align="center">
 		<h1>View Course</h1>
 		<div style="margin: 5%">
-			<table border="1" cellpadding="5" cellspacing="5">
+			<table border="1" cellpadding="5" cellspacing="5" class="table table-dark table-hover">
 				<tr>
 					<th>Course Id</th>
 					<th>Course Name</th>
@@ -46,11 +66,9 @@ Welcome&nbsp;<td th:text="${tab}">
 			</th:block>
 		</div>
 	</div>
-
-	<hr>
-	<div>
-		<a href="/homePage">HOME</a><br>
-		<a href="/orderCourse">Buy Course</a>
+<div align="center">
+		<a href="/orderCourse" class="btn btn-warning">Buy Course</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/addCourseView" class="btn btn-danger">Add Course</a>
 	</div>
 
 </body>

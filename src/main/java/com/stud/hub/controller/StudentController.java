@@ -9,10 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.stud.hub.model.CourseCartDetails;
+import com.stud.hub.model.CourseDetails;
 import com.stud.hub.service.StudentServiceI;
+import com.stud.hub.util.StudentValidation;
 import com.student.hub.bean.ComplainRequest;
-import com.student.hub.bean.Course;
-import com.student.hub.bean.CourseCart;
 import com.student.hub.bean.FeedBackRequest;
 import com.student.hub.bean.SignInRequest;
 import com.student.hub.bean.SignupRequest;
@@ -24,14 +25,17 @@ public class StudentController {
 	@Autowired
 	private StudentServiceI studentService;
 
+	@Autowired
+	private StudentValidation studentValidation;
+
 	@RequestMapping("/index")
 	public String index() {
-		return "index.html";
+		return "indextrial.html";
 	}
 
 	@RequestMapping("/signInPage")
 	public String signInForm(SignInRequest request) {
-		return "SignIn.html";
+		return "indextrial.html";
 	}
 
 	// method to return complain page
@@ -55,24 +59,27 @@ public class StudentController {
 
 	@RequestMapping("/signUpPage")
 	public String signUpForm(SignInRequest request) {
-		return "signUp.html";
+
+		return "indextrial.html";
 	}
 
 	@RequestMapping("/signInForm")
 	public String signIn(SignInRequest request, HttpSession session, Model model) {
-		boolean isFound = studentService.signIn(request);
-		if (isFound) {
-			int rollNo = studentService.getRollNoByUserName(request.getUsername());
-			String role = studentService.getRoleByRollNo(rollNo);
-			session.setAttribute("username", request.getUsername());
-			session.setAttribute("rollNo", rollNo);
-			session.setAttribute("role", role);
-			String name = (String) session.getAttribute("username");
-			model.addAttribute("username", name);
-			if (role.equals("Student")) {
-				return "userHome";
-			} else if (role.equals("Admin")) {
-				return "adminhomepage";
+		if (studentValidation.signInReqValidation(request)) {
+			boolean isFound = studentService.signIn(request);
+			if (isFound) {
+				int rollNo = studentService.getRollNoByUserName(request.getUsername());
+				String role = studentService.getRoleByRollNo(rollNo);
+				session.setAttribute("username", request.getUsername());
+				session.setAttribute("rollNo", rollNo);
+				session.setAttribute("role", role);
+				String name = (String) session.getAttribute("username");
+				model.addAttribute("username", name);
+				if (role.equals("Student")) {
+					return "userHome";
+				} else if (role.equals("Admin")) {
+					return "adminhomepage";
+				}
 			}
 		}
 		return "error";
@@ -92,7 +99,7 @@ public class StudentController {
 	public String getStudentDetailsPage(HttpSession session, Model model) {
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
-		return "studentDetail";
+		return "studentDetails";
 	}
 
 	@RequestMapping("/studentDetails")
@@ -107,7 +114,7 @@ public class StudentController {
 	@RequestMapping("/signUpForm")
 	public String signUp(SignupRequest request) {
 		studentService.signUpForm(request);
-		return "SignIn.html";
+		return "indextrial.html";
 	}
 
 	@RequestMapping(value = "/getProfile")
@@ -120,9 +127,51 @@ public class StudentController {
 		return "profile";
 	}
 
+	@RequestMapping("/myProfile")
+	public String myProfilePage(HttpSession session, Model model) {
+		String name = (String) session.getAttribute("username");
+		model.addAttribute("username", name);
+		return "redirect:getProfile";
+	}
+
+	@RequestMapping("/homePage")
+	public String homePage(HttpSession session, Model model) {
+		String name = (String) session.getAttribute("username");
+		model.addAttribute("username", name);
+		String role = (String) session.getAttribute("role");
+		if (role.equals("Student")) {
+			return "userHome.html";
+		} else if (role.equals("Admin")) {
+			return "adminhomepage";
+		} else {
+			return "error.html";
+		}
+
+	}
+
+	@RequestMapping("/addCourseView")
+	public String addCourseView(HttpSession session, Model model) {
+		String name = (String) session.getAttribute("username");
+		model.addAttribute("username", name);
+		String role = (String) session.getAttribute("role");
+		if (role.equals("Admin")) {
+
+			return "addCourse";
+		} else {
+			return "error";
+		}
+	}
+
+	@RequestMapping("/addCourse")
+	public String addCourse(CourseDetails course, HttpSession session) {
+
+		studentService.insertCourse(course);
+		return "redirect:getCourses";
+	}
+
 	@RequestMapping(value = "/getCourses")
 	public String viewCourses(Model model, HttpSession session) {
-		List<Course> listOfCourse = studentService.getCourse();
+		List<CourseDetails> listOfCourse = studentService.getCourse();
 		model.addAttribute("courseData", listOfCourse);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
@@ -136,34 +185,32 @@ public class StudentController {
 		return "redirect:getCourses";
 	}
 
-	@RequestMapping("/myProfile")
-	public String myProfilePage(HttpSession session, Model model) {
-		String name = (String) session.getAttribute("username");
-		model.addAttribute("username", name);
-		return "redirect:getProfile";
-	}
-
 	@RequestMapping(value = "/orderCourse")
 	public String courseCart(HttpSession session, Model model) {
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
+		List<CourseDetails> details = studentService.getCourse();
+		model.addAttribute("courseDetailData", details);
 		return "cartView";
 	}
 
 	@RequestMapping(value = "/paymentPage")
-	public String addCourseCart(CourseCart request, HttpSession session, Model model) {
+	public String addCourseCart(CourseCartDetails request, HttpSession session, Model model,
+			CourseCartDetails courseCart) {
 		studentService.addToCart(request);
+		studentService.addToCartMap(courseCart);
+		// List<CourseCartDetails> course = studentService.getCartMap();
+		// model.addAttribute("cartData", course);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
 		return "redirect:viewPayment";
 	}
 
 	@RequestMapping("/viewPayment")
-	public String viewCourseCart(HttpSession session, Model model) {
-
-		List<CourseCart> cart = studentService.getCart();
-
-		model.addAttribute("cartData", cart);
+	public String viewCourseCart(CourseCartDetails request, HttpSession session, Model model) {
+		List<CourseCartDetails> course = studentService.getCartMap();
+		// session.getAttribute("courseCart");
+		model.addAttribute("cartData", course);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
 		return "paymentPage";
@@ -172,24 +219,22 @@ public class StudentController {
 	@RequestMapping(value = "/sucessPage")
 	public String sucessPage(HttpSession session, Model model, String price) {
 		String name = (String) session.getAttribute("username");
-		String amount = (String) session.getAttribute(price);
-		model.addAttribute("amount", amount);
 		model.addAttribute("username", name);
 		return "sucess";
 	}
 
-	@RequestMapping("/homePage")
-	public String homePage(HttpSession session, Model model) {
+	@RequestMapping(value = "/orderViewPage")
+	public String orderPage(HttpSession session, Model model, String price) {
+		List<CourseCartDetails> cart = studentService.getCart();
+		model.addAttribute("cartorderData", cart);
 		String name = (String) session.getAttribute("username");
 		model.addAttribute("username", name);
 		String role = (String) session.getAttribute("role");
-		if (role.equals("Student")) {
-			return "userHome.html";
-		}
-		else if (role.equals("Admin")) {
-			return "adminhomepage";
+		if (role.equals("Admin")) {
+
+			return "cartOrderView.html";
 		} else {
-			return "error.html";
+			return "error";
 		}
 
 	}
